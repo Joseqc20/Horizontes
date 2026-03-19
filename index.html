@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontes 2026 - Revista Digital de Viajes</title>
+    <style>
+        /* CSS Integrado para facilidad de copia/pega en GitHub */
+        :root {
+            --primario: #0a2540; /* Azul Marino */
+            --secundario: #c9a063; /* Dorado */
+            --blanco: #ffffff;
+            --gris-claro: #f4f4f4;
+            --texto: #333333;
+            --fuente-titulos: 'Montserrat', sans-serif;
+            --fuente-cuerpo: 'Georgia', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { font-family: var(--fuente-cuerpo); color: var(--texto); line-height: 1.6; background-color: var(--blanco); }
+
+        /* Navegación */
+        header { background-color: var(--primario); color: var(--blanco); padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .logo { font-family: var(--fuente-titulos); font-size: 1.5rem; font-weight: bold; color: var(--secundario); text-transform: uppercase; letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--blanco); font-family: var(--fuente-titulos); font-size: 0.9rem; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--secundario); }
+
+        /* Secciones Principales */
+        section { padding: 8rem 2rem 4rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-family: var(--fuente-titulos); font-size: 2.5rem; color: var(--primario); text-align: center; margin-bottom: 1rem; text-transform: uppercase; }
+        .section-subtitle { text-align: center; color: #666; max-width: 600px; margin: 0 auto 3rem; font-style: italic; }
+
+        /* Hero / Portada - ACTUALIZADO A .PNG */
+        #inicio { height: 100vh; background: url('img/portada.png') no-repeat center center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--blanco); padding: 0; }
+        .hero-content { background-color: rgba(10, 37, 64, 0.8); padding: 3rem; border-radius: 10px; border: 2px solid var(--secundario); }
+        .hero-content h1 { font-family: var(--fuente-titulos); font-size: 4rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; }
+        .btn { display: inline-block; padding: 1rem 2rem; background-color: var(--secundario); color: var(--primario); text-decoration: none; font-family: var(--fuente-titulos); font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: background-color 0.3s; }
+        .btn:hover { background-color: var(--blanco); }
+
+        /* Grid de Destinos */
+        .destinos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .destino-card { background-color: var(--blanco); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s; border: 1px solid #eee; }
+        .destino-card:hover { transform: translateY(-5px); }
+        .destino-img { height: 200px; background-size: cover; background-position: center; }
+        .destino-info { padding: 1.5rem; }
+        .destino-info h3 { font-family: var(--fuente-titulos); color: var(--primario); font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .destino-info p { font-size: 0.95rem; color: var(--texto); margin-bottom: 1rem; height: 70px; overflow: hidden; }
+        .destino-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 1rem; margin-top: 1rem; font-size: 0.9rem; }
+        .price { font-family: var(--fuente-titulos); color: var(--secundario); font-weight: bold; font-size: 1.1rem; }
+        .dates { color: #888; font-style: italic; }
+
+        /* Imágenes específicas de cards - ACTUALIZADAS A .PNG */
+        .img-arenal { background-image: url('img/arenal.png'); }
+        .img-manuel-antonio { background-image: url('https://via.placeholder.com/400x200?text=Manuel+Antonio'); }
+        .img-puerto-viejo { background-image: url('https://via.placeholder.com/400x200?text=Puerto+Viejo'); }
+        .img-medellin { background-image: url('img/medellin.png'); }
+        .img-orlando { background-image: url('https://via.placeholder.com/400x200?text=Orlando'); }
+        .img-espana { background-image: url('img/españa.png'); }
+
+        /* Sección Especial - ACTUALIZADA A .PNG */
+        .especial-container { display: flex; gap: 3rem; align-items: center; background-color: var(--gris-claro); padding: 3rem; border-radius: 8px; }
+        .especial-img { flex: 1; height: 400px; background: url('img/hoteles.png') no-repeat center center/cover; border-radius: 8px; }
+        .especial-content { flex: 1; }
+        .especial-content h3 { font-family: var(--fuente-titulos); color: var(--primario); margin-bottom: 1rem; }
+        .especial-content ul { list-style: none; }
+        .especial-content li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
+        .especial-content li::before { content: '✓'; color: var(--secundario); position: absolute; left: 0; font-weight: bold; }
+
+        /* Contacto / Contraportada */
+        #contacto { background-color: var(--primario); color: var(--blanco); text-align: center; padding: 4rem 2rem; margin-top: 4rem; max-width: 100%; }
+        #contacto .section-title { color: var(--blanco); }
+        .contacto-info { font-family: var(--fuente-titulos); font-size: 1.1rem; margin-bottom: 2rem; }
+        .contacto-info p { margin-bottom: 0.5rem; }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; font-size: 1.5rem; }
+        .social-links a { color: var(--secundario); text-decoration: none; transition: opacity 0.3s; }
+        .social-links a:hover { opacity: 0.7; }
+
+        /* Footer */
+        footer { background-color: #051421; color: #888; text-align: center; padding: 1rem 0; font-size: 0.8rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
+            .especial-container { flex-direction: column; padding: 1.5rem; }
+            .especial-img { width: 100%; height: 250px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Horizontes</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nacional">Nacional</a></li>
+                <li><a href="#internacional">Internacional</a></li>
+                <li><a href="#especial">Especiales</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio">
+        <div class="hero-content">
+            <h1>Horizontes 2026</h1>
+            <p>Descubre el mundo con nuestra guía exclusiva. Itinerarios detallados, precios competitivos y experiencias inolvidables para el viajero moderno.</p>
+            <a href="#nacional" class="btn">Explorar Destinos</a>
+        </div>
+    </section>
+
+    <section id="nacional">
+        <h2 class="section-title">Destinos Nacionales</h2>
+        <p class="section-subtitle">Del Bosque Nuboso a la Arena Blanca. Tesoros ocultos en el Pacífico y el Caribe de Costa Rica.</p>
+        
+        <div class="destinos-grid">
+            <div class="destino-card">
+                <div class="destino-img img-manuel-antonio"></div>
+                <div class="destino-info">
+                    <h3>Manuel Antonio</h3>
+                    <p>El encuentro perfecto entre el bosque tropical y el mar. Tour de Catamarán y caminata guiada.</p>
+                    <div class="destino-meta">
+                        <span class="price">Desde $350</span>
+                        <span class="dates">Mayo 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destino-card">
+                <div class="destino-img img-arenal"></div>
+                <div class="destino-info">
+                    <h3>La Fortuna</h3>
+                    <p>Relajación total a los pies del Volcán Arenal. Aguas termales Tabacón y Catarata Río Fortuna.</p>
+                    <div class="destino-meta">
+                        <span class="price">Desde $390</span>
+                        <span class="dates">Junio 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destino-card">
+                <div class="destino-img img-puerto-viejo"></div>
+                <div class="destino-info">
+                    <h3>Puerto Viejo</h3>
+                    <p>El sabor del Caribe Sur. Snorkeling en Cahuita, cultura afrodescendiente y playas cristalinas.</p>
+                    <div class="destino-meta">
+                        <span class="price">Desde $290</span>
+                        <span class="dates">Agosto 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="internacional">
+        <h2 class="section-title">Destinos Internacionales</h2>
+        <p class="section-subtitle">Medellín, Orlando y la Magia de España. Experiencias globales diseñadas para ti.</p>
+        
+        <div class="destinos-grid">
+            <div class="destino-card">
+                <div class="destino-img img-medellin"></div>
+                <div class="destino-info">
+                    <h3>Medellín</h3>
+                    <p>Cultura, flores y arte urbano. Tour Comuna 13, Piedra del Peñol y Guatapé.</p>
+                    <div class="destino-meta">
+                        <span class="price">Vuelo+H: $650</span>
+                        <span class="dates">Julio 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destino-card">
+                <div class="destino-img img-orlando"></div>
+                <div class="destino-info">
+                    <h3>Orlando</h3>
+                    <p>Magia y adrenalina para toda la familia. Entradas a Magic Kingdom y Universal Studios.</p>
+                    <div class="destino-meta">
+                        <span class="price">Desde $1,450</span>
+                        <span class="dates">Sep-Oct 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destino-card">
+                <div class="destino-img img-espana"></div>
+                <div class="destino-info">
+                    <h3>España</h3>
+                    <p>Madrid y Barcelona. Recorrido histórico, arte de Gaudí y tren AVE incluido.</p>
+                    <div class="destino-meta">
+                        <span class="price">Desde $2,100</span>
+                        <span class="dates">Septiembre 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="especial">
+        <h2 class="section-title">Edición Especial</h2>
+        
+        <div class="especial-container">
+            <div class="especial-img"></div>
+            <div class="especial-content">
+                <h3>Hotelería de Lujo y Tips</h3>
+                <p style="margin-bottom: 1rem;">Nuestra selección de los mejores alojamientos del mundo y consejos esenciales para tu próximo viaje.</p>
+                <ul>
+                    <li>Arenal Kioro: Termales privadas en la habitación.</li>
+                    <li>Click Clack Medellín: Diseño industrial y terraza icónica.</li>
+                    <li>Seguro de Viaje: Cobertura mínima de $50,000 requerida.</li>
+                    <li>Documentación: Pasaporte con 6 meses de vigencia.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2 class="section-title">¡El mundo te espera!</h2>
+        <div class="contacto-info">
+            <p>Reserva hoy con <strong>Agencia Horizontes</strong></p>
+            <p>Teléfono: +506 2200-0000</p>
+            <p>Web: www.revistahorizontes.com</p>
+        </div>
+        <div class="social-links">
+            <a href="#">FB</a>
+            <a href="#">IG</a>
+            <a href="#">TW</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Revista Horizontes. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
