@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontes 2026 - Guía Premium</title>
+    <style>
+        :root {
+            --primario: #0a2540;
+            --secundario: #c9a063;
+            --blanco: #ffffff;
+            --gris-claro: #f4f7f9;
+            --texto: #333333;
+            --fuente-titulos: 'Montserrat', sans-serif;
+            --fuente-cuerpo: 'Georgia', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--fuente-cuerpo); color: var(--texto); line-height: 1.6; background-color: #fff; }
+
+        /* Header */
+        header { background: var(--primario); color: white; padding: 1.5rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; text-align: center; }
+        .logo { font-family: var(--fuente-titulos); font-size: 1.8rem; letter-spacing: 3px; color: var(--secundario); text-transform: uppercase; }
+
+        /* Hero */
+        #inicio { height: 60vh; background: linear-gradient(rgba(10,37,64,0.7), rgba(10,37,64,0.7)), url('./img/portada.png') no-repeat center center/cover; display: flex; align-items: center; justify-content: center; color: white; text-align: center; margin-top: 60px; }
+        .hero-text h1 { font-family: var(--fuente-titulos); font-size: 3.5rem; }
+
+        /* Grid de Destinos */
+        .container { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .destinos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+        
+        .card { 
+            border-radius: 15px; overflow: hidden; cursor: pointer; border: 1px solid #eee; 
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .card-img { height: 250px; background-size: cover; background-position: center; }
+
+        /* Estilos de las Cards */
+        .img-ma { background-image: url('./img/manuel_antonio.png'); }
+        .img-af { background-image: url('./img/arenal.png'); }
+        .img-pv { background-image: url('./img/puerto_viejo.png'); }
+        .img-med { background-image: url('./img/medellin.png'); }
+        .img-orl { background-image: url('./img/orlando.png'); }
+        .img-esp { background-image: url('./img/espana.png'); }
+
+        .card-body { padding: 1.5rem; text-align: center; }
+        .card-body h3 { font-family: var(--fuente-titulos); color: var(--primario); margin-bottom: 0.5rem; }
+        .price { color: var(--secundario); font-weight: bold; font-size: 1.2rem; }
+
+        /* MODAL REDISEÑADO */
+        .modal { 
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; 
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9); 
+            align-items: center; justify-content: center; backdrop-filter: blur(5px);
+        }
+        .modal-content { 
+            background: white; width: 95%; max-width: 850px; max-height: 90vh; 
+            border-radius: 20px; overflow-y: auto; position: relative; animation: fadeIn 0.4s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .modal-banner { height: 250px; background-size: cover; background-position: center; position: relative; }
+        .close-x { position: absolute; top: 20px; right: 25px; color: white; font-size: 2.5rem; cursor: pointer; z-index: 100; text-shadow: 0 0 10px black; }
+
+        .modal-info { padding: 2.5rem; }
+        .modal-info h2 { font-family: var(--fuente-titulos); color: var(--primario); font-size: 2.2rem; margin-bottom: 1rem; border-bottom: 2px solid var(--secundario); display: inline-block; }
+        
+        .detail-section { margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .detail-item { background: var(--gris-claro); padding: 1.2rem; border-radius: 10px; border-top: 3px solid var(--secundario); }
+        .detail-item h4 { font-family: var(--fuente-titulos); font-size: 0.9rem; text-transform: uppercase; color: var(--primario); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+        
+        .footer-modal { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .btn-reserva { background: var(--primario); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-family: var(--fuente-titulos); font-weight: bold; transition: 0.3s; }
+        .btn-reserva:hover { background: var(--secundario); color: var(--primario); }
+
+        footer { background: var(--primario); color: #888; text-align: center; padding: 3rem; margin-top: 4rem; }
+
+        @media (max-width: 768px) { .detail-section { grid-template-columns: 1fr; } .hero-text h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+
+    <header><div class="logo">Horizontes 2026</div></header>
+
+    <section id="inicio">
+        <div class="hero-text">
+            <h1>Descubre tu próximo destino</h1>
+            <p>Itinerarios completos diseñados para expertos.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="destinos-grid">
+            <div class="card" onclick="openModal('ma')">
+                <div class="card-img img-ma"></div>
+                <div class="card-body"><h3>Manuel Antonio</h3><p class="price">$350 USD</p></div>
+            </div>
+            <div class="card" onclick="openModal('af')">
+                <div class="card-img img-af"></div>
+                <div class="card-body"><h3>La Fortuna</h3><p class="price">$390 USD</p></div>
+            </div>
+            <div class="card" onclick="openModal('pv')">
+                <div class="card-img img-pv"></div>
+                <div class="card-body"><h3>Puerto Viejo</h3><p class="price">$290 USD</p></div>
+            </div>
+            <div class="card" onclick="openModal('med')">
+                <div class="card-img img-med"></div>
+                <div class="card-body"><h3>Medellín</h3><p class="price">$650 USD</p></div>
+            </div>
+            <div class="card" onclick="openModal('orl')">
+                <div class="card-img img-orl"></div>
+                <div class="card-body"><h3>Orlando</h3><p class="price">$1,450 USD</p></div>
+            </div>
+            <div class="card" onclick="openModal('esp')">
+                <div class="card-img img-esp"></div>
+                <div class="card-body"><h3>España</h3><p class="price">$2,100 USD</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tModal" class="modal">
+        <div class="modal-content">
+            <span class="close-x" onclick="closeModal()">&times;</span>
+            <div id="m-banner" class="modal-banner"></div>
+            <div class="modal-info">
+                <h2 id="m-titulo"></h2>
+                
+                <div class="detail-section">
+                    <div class="detail-item">
+                        <h4>🏨 Hospedaje</h4>
+                        <p id="m-hotel"></p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>🍽️ Alimentación</h4>
+                        <p id="m-comida"></p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>🛶 Tours & Actividades</h4>
+                        <p id="m-tours"></p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>📋 Detalles Extra</h4>
+                        <p id="m-extra"></p>
+                    </div>
+                </div>
+
+                <div class="footer-modal">
+                    <div class="price-box">Total: <strong id="m-precio" style="font-size: 1.8rem; color: var(--primario);"></strong></div>
+                    <a href="#" class="btn-reserva">Reservar Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 Revista Horizontes | Pérez Zeledón, Costa Rica</p></footer>
+
+    <script>
+        const travelData = {
+            'ma': {
+                t: "Manuel Antonio",
+                p: "$350 USD",
+                h: "Hotel Parador Nature & Resort. Habitación vista al mar, 3 días / 2 noches.",
+                c: "Desayunos buffet diarios. 1 Cena romántica incluida en el restaurante El Galeón.",
+                tr: "Caminata guiada en Parque Nacional + Tour de Catamarán con snorkeling y avistamiento de delfines.",
+                ex: "Traslado incluido desde San José. Guía certificado bilingüe.",
+                img: "./img/manuel_antonio.png"
+            },
+            'af': {
+                t: "La Fortuna",
+                p: "$390 USD",
+                h: "Arenal Kioro Suites & Spa. Suite con jacuzzi privado y vista directa al volcán.",
+                c: "Pensión completa (Desayuno, Almuerzo y Cena). Menú ejecutivo.",
+                tr: "Entrada VIP a aguas termales Tabacón + Senderismo por las coladas de lava y Catarata Río Fortuna.",
+                ex: "Incluye seguro de viajero y equipo para caminata.",
+                img: "./img/arenal.png"
+            },
+            'pv': {
+                t: "Puerto Viejo",
+                p: "$290 USD",
+                h: "Le Caméléon Boutique Hotel. Ambiente de lujo contemporáneo frente a Playa Cocles.",
+                c: "Desayunos incluidos + Tour gastronómico nocturno (degustación de Rice and Beans y Patí).",
+                tr: "Snorkeling en el arrecife de Cahuita + Visita guiada al Centro de Rescate Jaguar.",
+                ex: "Uso gratuito de bicicletas durante toda la estancia.",
+                img: "./img/puerto_viejo.png"
+            },
+            'med': {
+                t: "Medellín, Colombia",
+                p: "$650 USD",
+                h: "The Click Clack Hotel Medellín. Hotel de diseño en el corazón de El Poblado.",
+                c: "Desayunos 'Art-Bar'. Almuerzo típico paisa en Guatapé incluido.",
+                tr: "Vuelo ida y vuelta + Tour Comuna 13 + Excursión a la Piedra del Peñol y pueblo de colores.",
+                ex: "Asistencia médica internacional incluida.",
+                img: "./img/medellin.png"
+            },
+            'orl': {
+                t: "Orlando, Florida",
+                p: "$1,450 USD",
+                h: "Disney's All-Star Movies Resort. Dentro de la propiedad Disney con transporte gratuito.",
+                c: "Plan de comidas rápido (Quick-Service Dining Plan) para 5 días.",
+                tr: "Entradas para Magic Kingdom, Epcot y Universal Studios (Park-to-Park).",
+                ex: "Traslado gratuito aeropuerto-hotel-aeropuerto (Mears Connect).",
+                img: "./img/orlando.png"
+            },
+            'esp': {
+                t: "Madrid y Barcelona",
+                p: "$2,100 USD",
+                h: "Hotel Riu Plaza España (Madrid) y Hotel Majestic (Barcelona). Hoteles 5 estrellas.",
+                c: "Desayuno buffet premium. Cena show de Flamenco en Madrid incluida.",
+                tr: "Tren AVE (Alta Velocidad) entre ciudades + Visita a Sagrada Familia y Museo del Prado.",
+                ex: "Maleta de 23kg y bolso de mano incluidos en el vuelo.",
+                img: "./img/espana.png"
+            }
+        };
+
+        const modal = document.getElementById('tModal');
+
+        function openModal(id) {
+            const d = travelData[id];
+            document.getElementById('m-titulo').innerText = d.t;
+            document.getElementById('m-precio').innerText = d.p;
+            document.getElementById('m-hotel').innerText = d.h;
+            document.getElementById('m-comida').innerText = d.c;
+            document.getElementById('m-tours').innerText = d.tr;
+            document.getElementById('m-extra').innerText = d.ex;
+            document.getElementById('m-banner').style.backgroundImage = "url('" + d.img + "')";
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden"; // Detener scroll de fondo
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(e) { if (e.target == modal) closeModal(); }
+    </script>
+</body>
+</html>
